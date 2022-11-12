@@ -58,12 +58,11 @@ async def when(ctx):
 
                 
         if all(item.startswith(':green_square:') for item in when_list):
-            await ctx.send(when_emoji)
             await ctx.send('\n'.join(name_list))
             reset_list()
         else:
             await ctx.send(when_emoji)
-            await ctx.send('\n'.join(when_list))
+            # await ctx.send('\n'.join(when_list))
         
 
     if ctx.message.content == '!when remove' or ctx.message.content.startswith('!when --remove'):
@@ -79,7 +78,7 @@ async def when(ctx):
                 when_list[x] = ':negative_squared_cross_mark:'
                 name_list[x] = ':negative_squared_cross_mark:'
         await ctx.send(f'Get fucked {ctx.message.author.name}\n')
-        await ctx.send('\n‎'.join(when_list))
+        # await ctx.send('\n‎'.join(when_list))
 
     if ctx.message.content == '!when status':
         await ctx.send('\n‎'.join(when_list))
@@ -89,8 +88,8 @@ async def when(ctx):
 
     if ctx.message.content == '!when reset':
         reset_list()
-        await ctx.send(when_emoji)
-        await ctx.send('\n‎'.join(when_list))
+        await ctx.send(f'List of {when_emoji} has been reset.')
+        # await ctx.send('\n‎'.join(when_list))
 
 
     if ctx.message.content == '!when help':
