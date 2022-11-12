@@ -28,7 +28,14 @@ async def when(ctx):
     global when_list
     global name_list
 
-    if ctx.message.content == '!when':
+    if ctx.message.content == '!when' or ctx.message.content.startswith('!when --add'):
+        if ctx.message.content.startswith('!when --add'):
+            user = ctx.message.content.split()[-1]
+            user_name = '@' + ctx.message.content.split()[-1]
+        else:
+            user = ctx.message.author.name
+            user_name = ctx.message.author.mention
+
         timer_end = time.perf_counter()
 
         if timer_end - timer_start > 14400:
@@ -38,15 +45,15 @@ async def when(ctx):
         timer_start = time.perf_counter()
         
         for x, i in enumerate(when_list):
-            if when_list[x].endswith(f'{ctx.message.author.name}'):
+            if when_list[x].endswith(f'{user}'):
                 await ctx.send(f'You are already in the list, baka')
                 await ctx.send('\n'.join(when_list))
                 return 0
 
         for x, i in enumerate(when_list):
-            if when_list[x].startswith(':negative_squared_cross_mark:') or not when_list[x].endswith(f'{ctx.message.author.name}'):
-                when_list[x] = f':green_square: {ctx.message.author.name}'
-                name_list[x] = f':green_square: {ctx.message.author.mention}'
+            if when_list[x].startswith(':negative_squared_cross_mark:'):
+                when_list[x] = f':green_square: {user}'
+                name_list[x] = f':green_square: {user_name}'
                 break
 
                 
@@ -59,11 +66,18 @@ async def when(ctx):
             await ctx.send('\n'.join(when_list))
         
 
-    if ctx.message.content == '!when remove':
+    if ctx.message.content == '!when remove' or ctx.message.content.startswith('!when --remove'):
+        if ctx.message.content.startswith('!when --remove'):
+            user = ctx.message.content.split()[-1]
+            user_name = '@' + ctx.message.content.split()[-1]
+        else:
+            user = ctx.message.author.name
+            user_name = ctx.message.author.mention
+
         for x, i in enumerate(when_list):
-            if ctx.message.author.name in when_list[x]:
+            if user in when_list[x]:
                 when_list[x] = ':negative_squared_cross_mark:'
-                when_list[x] = ':negative_squared_cross_mark:'
+                name_list[x] = ':negative_squared_cross_mark:'
         await ctx.send(f'Get fucked {ctx.message.author.name}\n')
         await ctx.send('\n‎'.join(when_list))
 
@@ -77,6 +91,7 @@ async def when(ctx):
         reset_list()
         await ctx.send(when_emoji)
         await ctx.send('\n‎'.join(when_list))
+
 
     if ctx.message.content == '!when help':
         await ctx.send(f'`!when` - Add yourself to the {when_emoji} list\n' \
