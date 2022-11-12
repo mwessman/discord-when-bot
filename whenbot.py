@@ -36,12 +36,15 @@ async def when(ctx):
         timer_start = time.perf_counter()
         
         for x, i in enumerate(when_list):
+            if when_list[x].endswith(f'{ctx.message.author.name}'):
+                await ctx.send(f'You are already in the list, baka')
+                await ctx.send('\n'.join(when_list))
+                return 0
+
+        for x, i in enumerate(when_list):
             if when_list[x].startswith(':negative_squared_cross_mark:') or not when_list[x].endswith(f'{ctx.message.author.name}'):
                 when_list[x] = f':green_square: {ctx.message.author.name}'
                 name_list[x] = f':green_square: {ctx.message.author.mention}'
-                break
-            elif when_list[x].endswith(f'{ctx.message.author.name}'):
-                await ctx.send(f'You are already in the list, baka')
                 break
 
                 
