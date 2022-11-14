@@ -2,15 +2,15 @@
 
 This bot does some stuff.
 
-`!when` - Add yourself to the {when_emoji} list  
-`!when remove` - Remove yourself from the {when_emoji} list  
-`!when reset` - Reset the entire {when_emoji} list  
-`!when status` - Print the current status of the {when_emoji} list  
-`!when ping` - Ping all the current people in the {when_emoji} list  
+`!when` - Add yourself to the when list  
+`!when remove` - Remove yourself from the when list  
+`!when reset` - Reset the entire when list  
+`!when status` - Print the current status of the when list  
+`!when ping` - Ping all the current people in the when list  
 `!when help` - Prints this help page  
 
-The list clears itself after 5 people have been added and it pings everyone.\n' \
-It also clears itself after 4h of nobody adding themselves to the list'
+The list clears itself after 5 people have been added and it pings everyone.
+It also clears itself after 4h of nobody adding themselves to the list
 
 ------
 
