@@ -9,7 +9,7 @@ This bot does some stuff.
 `!when ping` - Ping all the current people in the when list  
 `!when help` - Prints this help page  
 
-The list clears itself after 5 people have been added and it pings everyone.
+The list clears itself after 5 people have been added and it pings everyone.  
 It also clears itself after 4h of nobody adding themselves to the list
 
 ------
