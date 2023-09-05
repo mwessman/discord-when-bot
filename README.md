@@ -15,3 +15,5 @@ It also clears itself after 4h of nobody adding themselves to the list'
 ------
 
 If you want to run this locally you need your own Discord bot token.
+
+Run with `nohup python whenbot.py &`

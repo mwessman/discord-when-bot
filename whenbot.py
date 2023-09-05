@@ -5,6 +5,9 @@ from discord.ext import commands
 import time
 import os
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents, description='WHEN?')
@@ -13,6 +16,7 @@ when_list = ['','','','','']
 name_list = ['','','','','']
 timer_start = time.perf_counter()
 when_emoji = '<:when:578647608973852672>'
+twentythirty_emoji = '<:2030:1129074182945255425>'
 
 def reset_list():
     for x, i in enumerate(when_list):
@@ -104,4 +108,24 @@ async def when(ctx):
         )
 
 
-bot.run(os.environ.get('token'))
+async def func():
+    c = bot.get_channel(155640200016560128)
+    await c.send(twentythirty_emoji)
+
+@bot.event
+async def on_ready():
+    print("Ready")
+
+    #initializing scheduler
+    scheduler = AsyncIOScheduler()
+
+    #sends emoji to channel at 20:30
+    scheduler.add_job(func, CronTrigger(hour='20', minute='30')) 
+
+    #starting the scheduler
+    scheduler.start()
+
+with open('token.txt') as f:
+    token = f.readline()
+
+bot.run(token)
