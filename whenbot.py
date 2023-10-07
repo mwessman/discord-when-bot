@@ -9,7 +9,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 intents = discord.Intents.default()
-intents.message_content = True
+intents.messages = True
 bot = commands.Bot(command_prefix='!', intents=intents, description='WHEN?')
 
 when_list = ['','','','','']
