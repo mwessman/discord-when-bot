@@ -17,6 +17,7 @@ name_list = ['','','','','']
 timer_start = time.perf_counter()
 when_emoji = '<:when:578647608973852672>'
 twentythirty_emoji = '<:2030:1129074182945255425>'
+twentythirty_friday = '<:deffjansquare:1017794741833830452>'
 
 def reset_list():
     for x, i in enumerate(when_list):
@@ -112,18 +113,30 @@ async def func():
     c = bot.get_channel(155640200016560128)
     await c.send(twentythirty_emoji)
 
+async def func_dnd():
+    c = bot.get_channel(155640200016560128)
+    await c.send(twentythirty_friday + ' 20:30 DnD')
+
 @bot.event
-async def on_ready():
+async def on_connect():
     print("Ready")
 
     #initializing scheduler
     scheduler = AsyncIOScheduler()
 
     #sends emoji to channel at 20:30
-    scheduler.add_job(func, CronTrigger(hour='20', minute='30')) 
+    job1 = scheduler.add_job(func, CronTrigger(hour='20', minute='30', day_of_week='mon-thu,sat-sun'))
+    job2 = scheduler.add_job(func_dnd, CronTrigger(hour='20', minute='30', day_of_week='fri'))
 
     #starting the scheduler
     scheduler.start()
+
+@bot.event
+async def on_discconnect():
+    print("Disconnected")
+    job1.remove()
+    job2.remove()
+
 
 with open('token.txt') as f:
     token = f.readline()
