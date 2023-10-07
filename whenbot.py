@@ -125,8 +125,8 @@ async def on_connect():
     scheduler = AsyncIOScheduler()
 
     #sends emoji to channel at 20:30
-    job1 = scheduler.add_job(func, CronTrigger(hour='20', minute='30', day_of_week='mon-thu,sat-sun'))
-    job2 = scheduler.add_job(func_dnd, CronTrigger(hour='20', minute='30', day_of_week='fri'))
+    job1 = scheduler.add_job(func, CronTrigger(hour='20', minute='30', day_of_week='mon-thu,sat-sun', timezone='Europe/Helsinki'))
+    job2 = scheduler.add_job(func_dnd, CronTrigger(hour='20', minute='30', day_of_week='fri', timezone='Europe/Helsinki'))
 
     #starting the scheduler
     scheduler.start()
