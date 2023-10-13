@@ -5,12 +5,20 @@ from discord.ext import commands
 import time
 import os
 
+import logging
+from systemd.journal import JournalHandler
+
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 intents = discord.Intents.default()
 intents.messages = True
 bot = commands.Bot(command_prefix='!', intents=intents, description='WHEN?')
+
+log = logging.getLogger('demo')
+log.addHandler(JournalHandler())
+log.setLevel(logging.INFO)
+log.info("Sent to journal")
 
 when_list = ['','','','','']
 name_list = ['','','','','']
@@ -132,7 +140,7 @@ async def on_connect():
     scheduler.start()
 
 @bot.event
-async def on_discconnect():
+async def on_disconnect():
     print("Disconnected")
     job1.remove()
     job2.remove()
